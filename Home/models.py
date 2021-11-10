@@ -17,15 +17,20 @@ class User(models.Model):
     )
     ChucVuCaNhan = models.IntegerField(default=0, choices=DichVuCaNhan)
     GioiThieu = models.TextField()
+
+class MonThi(models.Model):
+    MaMon = models.CharField(max_length=50)
+    TenMon = models.TextField()
  
 class DeThi(models.Model):
     TacGia = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    TenMonThi = models.ForeignKey(MonThi, on_delete=models.SET_NULL, null=True)
     MaDe = models.CharField(max_length=10)
     TenDe = models.TextField()
     NgayTao = models.DateTimeField(auto_now_add=True)
     HinhThucDeThi = (
         (0, "Luyện tập trắc nghiệm"),
-        (1, "Đề thi thông min"),
+        (1, "Đề thi thông minh"),
         (2, "Lý thuyết tương tác"),
         (3, "Hỏi và Đáp"),
         (4, "Đề thi Tự luận, chấm điểm trực tiếp lên bài"),
@@ -50,3 +55,7 @@ class DeThi(models.Model):
         (13, "Đại học")
     )
     Lop = models.IntegerField(default=0, choices=ClassForTest)
+
+class De(models.Model):
+    MaDe = models.ForeignKey(DeThi, on_delete=models.CASCADE)
+    
