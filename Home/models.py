@@ -20,7 +20,26 @@ class User(models.Model):
 
 class MonThi(models.Model):
     MaMon = models.CharField(max_length=50)
-    TenMon = models.TextField()
+    MonThiChoices = (
+        (0, "Tiếng Việt cấp 1"),
+        (1, "Tiếng Anh"),
+        (2, "Đạo Đức"),
+        (3, "Tự Nhiên và Xã Hội"),
+        (4, "Lịch Sử và Địa Lý"),
+        (5, "Khoa Học"),
+        (6, "Tin Học"),
+        (7, "Công Nghệ"),
+        (8, "Mỹ Thuật"),
+        (9, "Âm Nhạc"),
+        (10, "Ngữ Văn"),
+        (11, "Toán"),
+        (12, "Vật Lý"),
+        (13, "Hóa Học"),
+        (14, "Giáo Dục Công Dân"),
+        (15, "Khoa Học Tự Nhiên"),
+        (16, "Sinh Học")
+    )
+    TenMon = models.IntegerField(default=0, choices=MonThiChoices)
  
 class DeThi(models.Model):
     TacGia = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
@@ -56,6 +75,12 @@ class DeThi(models.Model):
     )
     Lop = models.IntegerField(default=0, choices=ClassForTest)
 
-class De(models.Model):
+class DeVaDapAn(models.Model):
     MaDe = models.ForeignKey(DeThi, on_delete=models.CASCADE)
-    
+    CauHoi = models.TextField()
+    DapAn = models.TextField()
+    CauHoiSo = models.IntegerField(default=0)
+    NoiDungCauHoi = models.TextField()
+    NoiDungCacDapAn = models.TextField()
+    DapAn = models.TextField()
+
