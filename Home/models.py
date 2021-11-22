@@ -9,14 +9,17 @@ class User(models.Model):
     SDT = models.CharField(max_length=12)
     NgaySinh = models.DateTimeField()
     NgayTao = models.DateTimeField(auto_now_add=True)
-    LuaChonChucVu = (
-        ('a', "Phụ Huynh"),
-        ('b', "Học Sinh"),
-        ('c', "Sinh Viên"),
-        ('d', "Giáo Viên - Giảng Viên")
+    ChucVuOptions = (
+        (0, "Phụ Huynh"),
+        (1, "Học Sinh"),
+        (2, "Sinh Viên"),
+        (3, "Giáo Viên - Giảng Viên")
     )
-    ChucVu = models.TextField(default='a', choices=LuaChonChucVu)
+    ChucVu = models.IntegerField(default=0, choices=ChucVuOptions)
     GioiThieu = models.TextField(null=True)
+    
+    def __str__(self):
+        return self.Username
 
 class MonHoc(models.Model):
     MonHocOptions = (
@@ -39,7 +42,8 @@ class MonHoc(models.Model):
         (16, "Sinh Học")
     )
     TenMonHoc = models.IntegerField(default=0, choices=MonHocOptions)
-    GhiChu = models.TextField(null=True)
+
+    
 
 class Lop(models.Model):
     LopOptions = (
